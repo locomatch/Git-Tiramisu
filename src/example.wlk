@@ -9,30 +9,39 @@ var property fuerzaOscura = 5
 }
 **/
 
+object mundo{
+	
+	var property fuerzaOscura = 5
+
+	method eclipse(){
+		fuerzaOscura = fuerzaOscura * 2
+	}		
+}
+
 object rolando {
 
 /** Punto 1 **/
-	var property fuerzaOscura = 5
-	var hechizoPreferido = espectroMalefico
+
+	var hechizoPreferido = libroDeHechizos
 
 /** Punto 2**/
 	var property artefactos = []
 	var valorBaseLucha = 1
 
+/** Punto 3**/	
 
+	var libroDeHechizos = []	
 
+	
+	
 /** Punto 1 **/	
 	method hechizoPreferido(_hechizoPreferido){
-    hechizoPreferido =_hechizoPreferido
+    	hechizoPreferido =_hechizoPreferido
     }
-    
-	method eclipse(){
-		fuerzaOscura = fuerzaOscura * 2
-	}
 	
 	method nivelDeHechiceria(){
 		
-	return (3 * hechizoPreferido.poder() + fuerzaOscura)  
+		return (3 * hechizoPreferido.poder() + mundo.fuerzaOscura())  
 	
 	}
 	
@@ -58,16 +67,9 @@ object rolando {
 	}
 
 /** Punto 3 **/
-	method agregarPertenencia (_objeto){
-		pertenencias.add(_objeto)
-	}
-	
-	method eliminarPertenencia (_objeto){
-		pertenencias.remove(_objeto)
-	}
 	
 	method estaCargado (){
-		return artefactos.size > 4
+		return artefactos.size() > 4
 	}
 	
 }
@@ -117,27 +119,35 @@ object collarDivino{
 /** Punto 2 **/
 object mascaraOscura{
 	method lucha (){
-		return [4,(rolando.fuerzaOscura())/2].max()
+		return [4,(mundo.fuerzaOscura())/2].max()
 	}
 }
 
 object armadura{
-	var refuerzo = 0
+	var refuerzo = ninguno
 	
-	method usar(){
+	method lucha(){
 		return 2+ refuerzo.aplicar()
 	}
 }
 
+object ninguno{
+	method aplicar(){
+		return 0
+	}
+}
+
 object cotaDeMalla{
-	method aplicar (guerrero){
+	method aplicar (){
 		return 1
 	}
 }
 
+//PROBLEMA CON ROLANDO.   Podria poner en el () al guerrero que quiera pero lo deberia usar en todas partes
+
 object bendicion{
-	method aplicar (guerrero){
-		return guerrero.nivelDeHechiceria()
+	method aplicar (){
+		return rolando.nivelDeHechiceria()
 	}
 }
 
@@ -148,7 +158,7 @@ object hechizo{
 		hechizoSeleccionado = _nuevoHechizo
 	}
 	
-	method aplicar (guerrero){
+	method aplicar (){
 		hechizoSeleccionado.poder()
 	}
 	
@@ -160,8 +170,26 @@ object espejo{
 	}
 }
 
+object libroDeHechizos{
+	var hechizos = []
+	
+	method esPoderoso(){
+		return hechizos.esPoderoso()
+	}
 
+	method poder(){
+		return hechizos.sum({ hechizo => hechizo.esPoderoso().poder() })
+	}	
 
+	method agregarHechizo (_hechizo){
+		hechizos.add(_hechizo)
+	}
+	
+	method eliminarHechizo (_hechizo){
+		hechizos.remove(_hechizo)
+	}
+
+}
 
 
 
