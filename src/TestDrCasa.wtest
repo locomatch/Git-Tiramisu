@@ -1,6 +1,42 @@
+import TP_DrCasa.*
 
-test "testX" {
+describe "TP Dr. Casa"{
 
-	assert.that(true)
+//Punto A
+	var malaria = new EnfermedadInfecciosa(celulasAmenazadas = 500)
+	var otitis = new EnfermedadInfecciosa(celulasAmenazadas = 100)
+	var lupus = new EnfermedadAutoinmune(celulasAmenazadas = 10000)
+	
+//Punto B
+	var otraMalaria = new EnfermedadInfecciosa(celulasAmenazadas = 800)
+	
+//Punto C
+	var logan = new Persona(celulas = 3000000, enfermedades = [malaria, otitis, lupus])
+	
+//Punto D
+	var frank = new Persona(celulas = 3500000)
+
+	test "Hacer que frank cotraiga la enfermedad del punto b"{
+	
+		frank.infectar(otraMalaria)
+	
+		assert.that(frank.enfermedades().contains(otraMalaria))
+
+	}
+	
+	test "Malaria de frank se reproduzca"{
+		malaria.duplicar()
+		assert.equals(1000, malaria.celulasAmenazadas())
+		}
+	
+	
+
+
+
+
+
+
+
+
 
 }
