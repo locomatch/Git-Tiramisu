@@ -27,12 +27,6 @@ object rolando {
 /** Punto 2**/
 	var property artefactos = []
 	var valorBaseLucha = 1
-
-/** Punto 3**/	
-
-	var libroDeHechizos = []	
-
-	
 	
 /** Punto 1 **/	
 	method hechizoPreferido(_hechizoPreferido){
@@ -178,7 +172,9 @@ object libroDeHechizos{
 	}
 
 	method poder(){
-		return hechizos.sum({ hechizo => hechizo.esPoderoso().poder() })
+		var hechizosPoderosos = []
+		hechizosPoderosos = hechizos.filter({hechizo => hechizo.esPoderoso()})
+		return hechizosPoderosos.sum({ hechizo => hechizo.poder() })
 	}	
 
 	method agregarHechizo (_hechizo){
